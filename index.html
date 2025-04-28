@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Parenting Assessment Quiz</title>
+    <style>
+        :root {
+            --dark-blue: #1a2942;
+            --gold: #d4af37;
+            --white: #ffffff;
+            --bright-cta: #ff6b00;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .quiz-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .main-headline {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--white);
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .timer-container {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .timer-text {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--gold);
+        }
+        
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--white);
+        }
+        
+        .endorsers {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .endorser {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            background-color: #f5f5f5;
+        }
+        
+        .endorser img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 90%;
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 18px 20px;
+            background-color: var(--bright-cta);
+            color: var(--white);
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .trust-indicator {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .social-proof {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        
+        .testimonials {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .testimonial {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .testimonial-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+        
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-content {
+            flex: 1;
+        }
+        
+        .testimonial-name {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-text {
+            font-size: 14px;
+        }
+        
+        /* Quiz interface styles */
+        .quiz-container {
+            display: none;
+            position: relative;
+            min-height: 80vh;
+            background-image: linear-gradient(rgba(26, 41, 66, 0.95), rgba(26, 41, 66, 0.95)), url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--gold);
+            border-radius: 4px;
+            width: 10%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .question-number {
+            font-size: 14px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .option.selected {
+            background-color: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+        
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .education-text {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            text-align: center;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        
+        /* Results page styles */
+        .results-container {
+            display: none;
+            padding: 20px;
+        }
+        
+        .calculating {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .calculating h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+        
+        .loading-animation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .loading-icon {
+            width: 40px;
+            height: 40px;
+            animation: spin 2s infinite linear;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .results-content {
+            display: none;
+        }
+        
+        .score-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .score-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .score-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        
+        .score-thermometer {
+            width: 80%;
+            max-width: 300px;
+            height: 20px;
+            background: linear-gradient(to right, #ff0000, #ffff00, #00ff00);
+            border-radius: 10px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .score-marker {
+            position: absolute;
+            width: 4px;
+            height: 30px;
+            background-color: #000;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .results-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .results-section h3 {
+            font-size: 18px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        
+        .results-section ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .results-section li {
+            margin-bottom: 10px;
+        }
+        
+        .results-section p {
+            margin-bottom: 15px;
+        }
+        
+        .lock-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .lock-icon {
+            font-size: 40px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+        
+        .unlock-cta {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            line-height: 1.3;
+        }
+        
+        .fear-headline {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        
+        .exit-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .popup-content {
+            background-color: var(--dark-blue);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 3px solid var(--gold);
+        }
+        
+        .popup-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+        
+        .popup-text {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .popup-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .popup-stay {
+            padding: 15px;
+            background-color: var(--bright-cta);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        
+        .popup-leave {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .transition-container {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .shocking-stat {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+        
+        .stat-highlight {
+            color: #ff6b6b;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+            
+            .main-headline {
+                font-size: 36px;
+            }
+            
+            .testimonials {
+                flex-direction: row;
+            }
+            
+            .options-container {
+                max-width: 600px;
+                margin: 0 auto 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Quiz Entry Page -->
+    <div class="container" id="quiz-entry">
+        <div class="quiz-header">
+            <h1 class="main-headline">THIS 2-MINUTE QUIZ REVEALS IF YOUR PARENTING IS CREATING A FUTURE MILLIONAIRE OR MINIMUM WAGE WORKER</h1>
+            
+            <div class="timer-container">
+                <p class="timer-text">LIMITED DAILY QUIZ SLOTS AVAILABLE:</p>
+                <div class="timer" id="countdown">11:59</div>
+            </div>
+            
+            <div class="endorsers">
+                <div class="endorser">
+                    <img src="/api/placeholder/60/60" alt="Entrepreneur 1">
+                </div>
+                <div class="endorser">
+                    <img src="/api/placeholder/60/60" alt="Entrepreneur 2">
+                </div>
+                <div class="endorser">
+                    <img src="/api/placeholder/60/60" alt="Entrepreneur 3">
+                </div>
+            </div>
+            
+            <button class="cta-button" id="start-quiz">START MY WEALTH ASSESSMENT NOW</button>
+            
+            <div class="trust-indicators">
+                <div class="trust-indicator">As featured in Forbes</div>
+                <div class="trust-indicator">Business Insider</div>
+                <div class="trust-indicator">CNBC</div>
+            </div>
+            
+            <div class="social-proof">
+                <div class="counter">31,487</div>
+                <p>parents completed this assessment this month</p>
+            </div>
+            
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-image">
+                        <img src="/api/placeholder/50/50" alt="Testimonial 1">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-name">Sarah K.</div>
+                        <div class="testimonial-text">"My son's confidence skyrocketed after implementing just ONE of these wealth mindset principles!"</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-image">
+                        <img src="/api/placeholder/50/50" alt="Testimonial 2">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-name">Michael T.</div>
+                        <div class="testimonial-text">"I discovered I was accidentally teaching my daughter scarcity thinking. Everything changed after this assessment."</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <div class="testimonial-image">
+                        <img src="/api/placeholder/50/50" alt="Testimonial 3">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="testimonial-name">Lisa M.</div>
+                        <div class="testimonial-text">"My 12-year-old started his first business two months after I implemented these wealth parenting strategies!"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quiz Interface -->
+    <div class="quiz-container" id="quiz">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        
+        <div class="question-container">
+            <div class="question-number">Question <span id="current-question">1</span> of 10</div>
+            <div class="question-text" id="question-text">When your child asks for a new toy or game, what's your typical response?</div>
+        </div>
+        
+        <div class="options-container">
+            <div class="option" data-value="A">
+                <div class="option-letter">A</div>
+                <div>I usually buy it if I can afford it - I want them to be happy</div>
+            </div>
+            <div class="option" data-value="B">
+                <div class="option-letter">B</div>
+                <div>I suggest they save their allowance to buy it themselves</div>
+            </div>
+            <div class="option" data-value="C">
+                <div class="option-letter">C</div>
+                <div>I ask them to create a plan for how they could earn the money for it</div>
+            </div>
+            <div class="option" data-value="D">
+                <div class="option-letter">D</div>
+                <div>I suggest we research if it's the best value and discuss opportunity costs</div>
+            </div>
+        </div>
+        
+        <div class="education-text">Based on a 20-year study of wealth development patterns in high-net-worth families</div>
+    </div>
+    
+    <!-- Results Calculating Page -->
+    <div class="results-container" id="results">
+        <div class="calculating" id="calculating">
+            <h2>Calculating your results...</h2>
+            <div class="loading-animation">
+                <div class="loading-icon">💰</div>
+                <div class="loading-icon">📊</div>
+                <div class="loading-icon">💎</div>
+                <div class="loading-icon">📈</div>
+            </div>
+            <p>Analyzing your parenting approach against the top 1% of wealth builders...</p>
+        </div>
+        
+        <div class="results-content" id="results-content">
+            <div class="score-container">
+                <h2 class="score-title">Your Child's Wealth Potential Score</h2>
+                <div class="score-value" id="score-value">54</div>
+                <div class="score-thermometer">
+                    <div class="score-marker" id="score-marker"></div>
+                </div>
+                <p>Your score is lower than 67% of parents who are actively developing their child's wealth mindset</p>
+            </div>
+            
+            <div class="results-section">
+                <h3>Current Trajectory Graph</h3>
+                <p>Based on your parenting approach, your child is currently on track for:</p>
+                <ul>
+                    <li>40+ years in the workforce with limited financial freedom</li>
+                    <li>Potentially struggling with debt cycles throughout adulthood</li>
+                    <li>Living paycheck to paycheck well into their 40s</li>
+                </ul>
+            </div>
+            
+            <div class="results-section">
+                <h3>Wealth Gaps Identified</h3>
+                <ul>
+                    <li><strong>Risk Avoidance Mindset:</strong> Your answers indicate you may be inadvertently teaching fear of failure rather than calculated risk-taking.</li>
+                    <li><strong>Passive Income Blindspot:</strong> Your child is learning traditional income models rather than wealth-building assets.</li>
+                    <li><strong>Scarcity Programming:</strong> Some of your responses show potential scarcity messaging that limits wealth creation.</li>
+                </ul>
+            </div>
+            
+            <div class="results-section">
+                <h3>Opportunity Zones</h3>
+                <ul>
+                    <li><strong>Entrepreneurial Thinking:</strong> Immediate opportunity to introduce business concepts that billionaires teach their children.</li>
+                    <li><strong>Money Multiplication:</strong> Your child has untapped potential for understanding compound growth principles.</li>
+                </ul>
+            </div>
+            
+            <div class="lock-container">
+                <div class="lock-icon">🔒</div>
+                <div class="unlock-cta">UNLOCK YOUR COMPLETE RESULTS AND WEALTH BLUEPRINT NOW</div>
+                <div class="fear-headline">Your child's financial future is being determined RIGHT NOW</div>
+                <div class="timer" id="results-timer">14:59</div>
+                <button class="cta-button" id="unlock-button">CONTINUE TO YOUR PERSONALIZED WEALTH BLUEPRINT →</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Transition to Advertorial -->
+    <div class="transition-container" id="transition">
+        <div class="shocking-stat">
+            <span class="stat-highlight">83% of children raised with these common parenting approaches will NEVER achieve financial freedom.</span>
+        </div>
+        
+        <p>Your Wealth Potential Score of <span id="final-score">54</span> reveals critical gaps in your wealth parenting approach.</p>
+        
+        <p>We've identified specific limiting beliefs that may be holding your child back from their full financial potential.</p>
+        
+        <p>The good news? There's a proven solution that the elite 1% have been using for generations...</p>
+        
+        <button class="cta-button" id="final-cta">CONTINUE TO YOUR PERSONALIZED WEALTH BLUEPRINT →</button>
+    </div>
+    
+    <!-- Exit Intent Popup -->
+    <div class="exit-popup" id="exit-popup">
+        <div class="popup-content">
+            <h2 class="popup-title">WAIT!</h2>
+            <p class="popup-text">You're about to miss discovering the #1 wealth secret billionaires teach their kids!</p>
+            <div class="popup-buttons">
+                <button class="popup-stay" id="popup-stay">I WANT THE SECRET - LET ME FINISH!</button>
+                <button class="popup-leave" id="popup-leave">No thanks, I prefer my child struggles financially</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Quiz questions and options
+        const questions = [
+            {
+                text: "When your child asks for a new toy or game, what's your typical response?",
+                options: [
+                    "I usually buy it if I can afford it - I want them to be happy",
+                    "I suggest they save their allowance to buy it themselves",
+                    "I ask them to create a plan for how they could earn the money for it",
+                    "I suggest we research if it's the best value and discuss opportunity costs"
+                ],
+                education: "Based on a 20-year study of wealth development patterns in high-net-worth families"
+            },
+            {
+                text: "How do you talk about money in your household?",
+                options: [
+                    "We rarely discuss money - it's not polite or appropriate",
+                    "We discuss basic budgeting and saving for purchases",
+                    "We regularly review family finances together and discuss wealth-building",
+                    "We analyze investment opportunities and teach wealth multiplication strategies"
+                ],
+                education: "Research shows the top 1% have specific communication patterns about money"
+            },
+            {
+                text: "When your child fails at something, how do you typically respond?",
+                options: [
+                    "I comfort them and suggest trying something easier next time",
+                    "I tell them to keep trying and not give up",
+                    "I help them analyze what went wrong and create an improvement plan",
+                    "I celebrate the failure as a valuable learning experience and ask what they'll try differently"
+                ],
+                education: "Billionaire parents handle failure differently than middle-class parents"
+            },
+            {
+                text: "What's your approach to your child's education?",
+                options: [
+                    "Focus on good grades to get into a good college and secure a good job",
+                    "Balance academics with extracurricular activities for a well-rounded experience",
+                    "Supplement school with real-world skills like coding, investing, or business",
+                    "Design a customized learning path focused on their strengths and entrepreneurial skills"
+                ],
+                education: "Elite wealth creators prioritize specific educational approaches over traditional methods"
+            },
+            {
+                text: "How do you handle your child's allowance?",
+                options: [
+                    "I give them a set amount each week with no strings attached",
+                    "I give them money for completing chores and responsibilities",
+                    "I have them allocate portions for spending, saving, and giving",
+                    "They earn through a home 'economy' system and must invest a percentage of earnings"
+                ],
+                education: "How you structure financial rewards shapes lifelong wealth habits"
+            },
+            {
+                text: "What does your child know about investing?",
+                options: [
+                    "Nothing yet - they're too young to understand investing",
+                    "Basic concepts about saving money in a bank",
+                    "They understand stocks and have a small investment account I manage",
+                    "They actively research and suggest investments with their own portfolio"
+                ],
+                education: "Children of the wealthy begin investment education as early as age 5"
+            },
+            {
+                text: "How does your child spend free time?",
+                options: [
+                    "Mostly entertainment - games, social media, TV, or with friends",
+                    "A mix of fun activities and structured learning like music lessons or sports",
+                    "Balanced between entertainment, structured activities, and self-directed projects",
+                    "Predominantly skill-building, reading about successful people, and entrepreneurial projects"
+                ],
+                education: "How children allocate time predicts over 60% of future financial outcomes"
+            },
+            {
+                text: "What's your approach when your child shows interest in starting a business?",
+                options: [
+                    "I suggest they focus on school first and business later in life",
+                    "I'm supportive but remind them not to get their hopes too high",
+                    "I help them start small and learn the basics of business",
+                    "I treat it as a critical learning opportunity and invest time/resources to help them succeed"
+                ],
+                education: "Nearly 80% of ultra-wealthy parents actively foster entrepreneurship before age 12"
+            },
+            {
+                text: "What do you teach your child about debt?",
+                options: [
+                    "Avoid debt at all costs - it's dangerous and irresponsible",
+                    "Some debt is necessary (like mortgages) but minimize it when possible",
+                    "There's good debt (for assets) and bad debt (for liabilities)",
+                    "Debt is a tool that can create leverage when used strategically to acquire assets"
+                ],
+                education: "Billionaires have fundamentally different beliefs about debt than the middle class"
+            },
+            {
+                text: "How do you model wealth-building for your child?",
+                options: [
+                    "I work hard at my job to provide a stable income",
+                    "I save consistently and live below my means",
+                    "I have some investments and discuss their performance occasionally",
+                    "I actively pursue multiple income streams and involve my child in wealth decisions"
+                ],
+                education: "Children mirror their parents' wealth behaviors regardless of what they're told"
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let answers = [];
+        let quizTimerId, resultsTimerId;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize countdown timer
+            startCountdown('countdown', 12 * 60);
+            
+            // Start quiz button
+            document.getElementById('start-quiz').addEventListener('click', function() {
+                document.getElementById('quiz-entry').style.display = 'none';
+                document.getElementById('quiz').style.display = 'block';
+                loadQuestion(0);
+            });
+            
+            // Option selection
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectOption(this);
+                });
+            });
+            
+            // Unlock button
+            document.getElementById('unlock-button').addEventListener('click', function() {
+                document.getElementById('results').style.display = 'none';
+                document.getElementById('transition').style.display = 'block';
+            });
+            
+            // Final CTA button
+            document.getElementById('final-cta').addEventListener('click', function() {
+                // Redirect to advertorial
+                alert('Redirecting to advertorial page...');
+            });
+            
+            // Exit intent popup
+            document.getElementById('popup-stay').addEventListener('click', function() {
+                document.getElementById('exit-popup').style.display = 'none';
+            });
+            
+            document.getElementById('popup-leave').addEventListener('click', function() {
+                document.getElementById('exit-popup').style.display = 'none';
+            });
+            
+            // Simulate exit intent
+            setTimeout(function() {
+                if (document.getElementById('quiz').style.display === 'block') {
+                    document.getElementById('exit-popup').style.display = 'flex';
+                }
+            }, 30000);
+        });
+        
+        function startCountdown(elementId, seconds) {
+            const element = document.getElementById(elementId);
+            let remainingSeconds = seconds;
+            
+            function updateCountdown() {
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                element.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerId);
+                    return;
+                }
+                
+                remainingSeconds--;
+            }
+            
+            updateCountdown();
+            const timerId = setInterval(updateCountdown, 1000);
+            
+            return timerId;
+        }
+        
+        function loadQuestion(index) {
+            const questionData = questions[index];
+            document.getElementById('current-question').textContent = index + 1;
+            document.getElementById('question-text').textContent = questionData.text;
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                // Clear any previous selection
+                option.classList.remove('selected');
+                
+                // Update option text (keep the letter div)
+                const optionContent = option.querySelector('div:last-child');
+                optionContent.textContent = questionData.options[i];
+            });
+            
+            document.querySelector('.education-text').textContent = questionData.education;
+            
+            // Update progress bar
+            const progress = ((index + 1) / questions.length) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+        
+        function selectOption(optionElement) {
+            // Remove selection from all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            optionElement.classList.add('selected');
+            
+            // Store answer
+            const answer = optionElement.getAttribute('data-value');
+            answers[currentQuestion] = answer;
+            
+            // Add gold pulse animation
+            optionElement.style.animation = 'goldPulse 0.5s';
+            setTimeout(() => {
+                optionElement.style.animation = '';
+                nextQuestion();
+            }, 500);
+        }
+        
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                // Load next question
+                loadQuestion(currentQuestion);
+            } else {
+                // Quiz completed, show results
+                showResults();
+            }
+        }
+        
+        function showResults() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            
+            // Simulate calculation time
+            setTimeout(() => {
+                document.getElementById('calculating').style.display = 'none';
+                document.getElementById('results-content').style.display = 'block';
+                
+                // Calculate score (for demo: random score between 40-65)
+                const score = Math.floor(Math.random() * 26) + 40;
+                document.getElementById('score-value').textContent = score;
+                document.getElementById('final-score').textContent = score;
+                
+                // Position score marker
+                const percentage = score / 100;
+                document.getElementById('score-marker').style.left = `${percentage * 100}%`;
+                
+                // Start results countdown timer
+                startCountdown('results-timer', 15 * 60);
+            }, 5000);
+        }
+        
+        // Add exit intent detection
+        document.addEventListener('mouseleave', function(e) {
+            // Only trigger if mouse leaves the top of the page
+            if (e.clientY < 0) {
+                // Only show if quiz is active or results are showing but not completed
+                const quizActive = document.getElementById('quiz').style.display === 'block';
+                const resultsActive = document.getElementById('results').style.display === 'block' && 
+                                     document.getElementById('transition').style.display !== 'block';
+                
+                if (quizActive || resultsActive) {
+                    document.getElementById('exit-popup').style.display = 'flex';
+                }
+            }
+        });
+        
+        // Add enhanced animations and effects
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('mouseover', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+            });
+            
+            option.addEventListener('mouseout', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // Add keyframe for gold pulse
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes goldPulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+                }
+                70% {
+                    box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
