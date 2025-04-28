@@ -1,1 +1,764 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Some Children Are Programmed for Wealth While Others Struggle Their Entire Lives</title>
+    <style>
+        :root {
+            --dark-blue: #1a2942;
+            --accent: #4a90e2;
+            --text: #333333;
+            --light-bg: #f9f9f9;
+            --highlight: #fffacd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 780px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+            font-family: 'Arial', sans-serif;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .site-name {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .article-meta {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .pub-date, .category {
+            position: relative;
+        }
+        
+        .category {
+            color: var(--accent);
+        }
+        
+        .pub-date::after {
+            content: "•";
+            position: absolute;
+            right: -10px;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        .main-headline {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .subheadline {
+            font-size: 20px;
+            font-weight: normal;
+            font-style: italic;
+            line-height: 1.4;
+            color: #555;
+            margin-bottom: 25px;
+        }
+        
+        .author-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-bio {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .author-title {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .content-area {
+            margin-bottom: 40px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .lead-in {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #444;
+        }
+        
+        .section-headline {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 35px 0 20px;
+            color: var(--dark-blue);
+            line-height: 1.3;
+        }
+        
+        .quote-block {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--accent);
+            font-style: italic;
+        }
+        
+        .quote-text {
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        
+        .quote-source {
+            font-size: 16px;
+            text-align: right;
+            color: #666;
+        }
+        
+        .feature-img {
+            width: 100%;
+            margin: 30px 0;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .caption {
+            background-color: var(--light-bg);
+            padding: 12px 15px;
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .highlight-box {
+            margin: 30px 0;
+            padding: 25px;
+            background-color: rgba(74, 144, 226, 0.05);
+            border-radius: 4px;
+            border: 1px solid rgba(74, 144, 226, 0.15);
+        }
+        
+        .highlight-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .highlight-list {
+            list-style-type: none;
+        }
+        
+        .highlight-list li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 28px;
+        }
+        
+        .highlight-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 1;
+        }
+        
+        .text-highlight {
+            background-color: var(--highlight);
+            padding: 2px 4px;
+        }
+        
+        .story-card {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            border-top: 3px solid var(--accent);
+        }
+        
+        .story-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+        
+        .story-text {
+            font-style: italic;
+            margin-bottom: 10px;
+            font-size: 17px;
+        }
+        
+        .story-person {
+            text-align: right;
+            font-weight: bold;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .cta-section {
+            margin: 40px 0;
+            padding: 30px;
+            background-color: var(--light-bg);
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .cta-headline {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+        
+        .cta-description {
+            margin-bottom: 25px;
+            font-size: 18px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: #3a7bc8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtle-cta {
+            margin: 30px 0;
+            padding: 0;
+            text-align: center;
+        }
+        
+        .subtle-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(74, 144, 226, 0.1);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 4px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+        }
+        
+        .subtle-button:hover {
+            background-color: rgba(74, 144, 226, 0.15);
+            transform: translateY(-1px);
+        }
+        
+        .big-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--accent);
+            margin-right: 15px;
+            line-height: 1;
+        }
+        
+        .with-big-number {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .number-content {
+            flex: 1;
+        }
+        
+        .number-heading {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .sharing {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .share-button {
+            padding: 8px 15px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .share-icon {
+            margin-right: 5px;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 40px 0;
+        }
+        
+        .bold-text {
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .main-headline {
+                font-size: 28px;
+            }
+            
+            .subheadline {
+                font-size: 18px;
+            }
+            
+            p {
+                font-size: 17px;
+            }
+            
+            .lead-in {
+                font-size: 18px;
+            }
+            
+            .quote-text {
+                font-size: 18px;
+            }
+            
+            .with-big-number {
+                flex-direction: column;
+            }
+            
+            .big-number {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <div class="site-name">PARENT INSIGHTS</div>
+            <div class="article-meta">
+                <div class="pub-date">April 29, 2025</div>
+                <div class="category">Child Development</div>
+            </div>
+        </div>
+        
+        <div class="header">
+            <h1 class="main-headline">Why Some Children Are Programmed for Wealth While Others Struggle Their Entire Lives</h1>
+            <h2 class="subheadline">A surprising brain development window may determine your child's financial future before they even understand what money is</h2>
+            
+            <div class="author-section">
+                <div class="author-img">
+                    <img src="/api/placeholder/60/60" alt="Sarah Chen">
+                </div>
+                <div class="author-bio">
+                    <div class="author-name">Sarah Chen</div>
+                    <div class="author-title">Child Development Researcher & Parent Educator</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            <p class="lead-in">
+                Last Tuesday, I watched my sister Lisa literally break down in tears over something her 8-year-old son had said at dinner.
+            </p>
+            
+            <p>
+                "I asked Jack what he wanted to be when he grew up," she told me, voice cracking. "He said he just wants a job where he won't get fired, so he can pay his bills. He's <span class="bold-text">eight years old and already talking about financial survival instead of dreams.</span>"
+            </p>
+            
+            <p>
+                As we talked deeper, Lisa realized she'd been unconsciously passing down her own financial anxiety – the same patterns our parents had instilled in us. The same patterns that led both of us to decades of financial stress as adults.
+            </p>
+            
+            <p>
+                But what Lisa didn't know was that she had stumbled onto something much bigger than just passing down money attitudes.
+            </p>
+            
+            <div class="feature-img">
+                <img src="/api/placeholder/780/400" alt="Child thinking about future">
+                <div class="caption">By age 9, a child's core financial processing patterns are already forming in their brain, according to developmental researchers.</div>
+            </div>
+            
+            <h3 class="section-headline">The Invisible Brain Patterns That Determine Financial Destiny</h3>
+            
+            <p>
+                What my sister was witnessing goes much deeper than just teaching kids about money. Recent research from leading universities suggests something far more profound: <span class="bold-text">children develop specific neural pathways between ages 5-15 that literally determine how their brain processes money, opportunity, and wealth for their entire adult life.</span>
+            </p>
+            
+            <p>
+                Most concerning? These patterns form largely unconsciously, shaped by subtle everyday interactions rather than formal teaching.
+            </p>
+            
+            <p>
+                Dr. Eliza Moreno, who studies childhood development at Stanford, explains: "When we look at brain scans of adults with different financial outcomes, we can actually see structural differences in how their brains process identical financial scenarios. These differences trace back to childhood pattern formation."
+            </p>
+            
+            <p>
+                In other words, your child's brain is being programmed right now for either financial struggle or financial success – before they even understand what money really is.
+            </p>
+            
+            <div class="subtle-cta">
+                <a href="#" class="subtle-button">See What Happens In Your Child's Brain →</a>
+            </div>
+            
+            <h3 class="section-headline">Why Traditional "Money Lessons" Actually Backfire</h3>
+            
+            <p>
+                When I shared these findings with Lisa, her first instinct was to immediately start teaching Jack about saving, budgeting, and being "responsible" with money.
+            </p>
+            
+            <p>
+                That's when I had to deliver the news that shocked her even more: <span class="bold-text">traditional financial education can actually reinforce the exact neural patterns that lead to lifelong financial limitation.</span>
+            </p>
+            
+            <p>
+                This explains a puzzling pattern researchers have noticed: many financially successful adults never received formal money education, while many who struggle financially had parents who diligently taught budgeting and saving.
+            </p>
+            
+            <div class="quote-block">
+                <div class="quote-text">"When parents teach children to 'be careful with money' and 'save for a rainy day,' they're often inadvertently programming scarcity patterns that become permanently wired in the developing brain."</div>
+                <div class="quote-source">— Dr. Michael Reeves, Neuropsychology Researcher</div>
+            </div>
+            
+            <p>
+                The problem isn't teaching kids about money – it's that most parents are unwittingly installing limiting patterns at the neural level without realizing it.
+            </p>
+            
+            <h3 class="section-headline">What Wealthy Families Do Differently (It's Not What You Think)</h3>
+            
+            <p>
+                For years, experts assumed wealthy families simply had more resources or connections to share with their children. But new research has uncovered something far more powerful at work.
+            </p>
+            
+            <p>
+                In a groundbreaking study that followed 300 families across different economic backgrounds for over a decade, researchers discovered that wealthy families <span class="bold-text">unconsciously create specific types of experiences that develop entirely different neural pathways in their children's brains.</span>
+            </p>
+            
+            <p>
+                Most importantly, these experiences have nothing to do with how much money the family has.
+            </p>
+            
+            <div class="highlight-box">
+                <h4 class="highlight-title">Three Critical Brain Patterns Researchers Identified:</h4>
+                <ul class="highlight-list">
+                    <li><strong>Opportunity Recognition Circuit:</strong> The brain's ability to automatically identify potential value where others see nothing unusual.</li>
+                    <li><strong>Resource Expansion Network:</strong> Neural pathways that envision multiplying resources rather than merely conserving them.</li>
+                    <li><strong>Risk-Reward Assessment System:</strong> Brain patterns that accurately evaluate potential gains versus potential losses.</li>
+                </ul>
+            </div>
+            
+            <p>
+                The fascinating discovery? <span class="bold-text">These patterns can be developed in any child's brain regardless of family income or background</span> – but only during a specific developmental window.
+            </p>
+            
+            <div class="story-card">
+                <div class="story-title">From Struggling Student to 7-Figure Business Owner</div>
+                <div class="story-text">"My parents were teachers who lived paycheck to paycheck. But my uncle would take me to flea markets every weekend when I was 8-11 years old. He'd give me $20 and challenge me to find items I could resell for more. I didn't realize he was rewiring my brain's opportunity recognition circuit during the critical window. By 23, I was running a 7-figure business while my equally intelligent siblings still struggle financially."</div>
+                <div class="story-person">— Jason R., 34</div>
+            </div>
+            
+            <h3 class="section-headline">The Critical Time Window Parents Don't Know About</h3>
+            
+            <p>
+                Perhaps the most alarming finding from recent studies is that there appears to be a limited developmental window when these wealth-building neural pathways are most easily formed.
+            </p>
+            
+            <p>
+                "What we're seeing is that these financial processing circuits in the brain are primarily established between ages 5-15," explains developmental psychologist Dr. Rebecca Shaw. "After this window closes, creating these pathways becomes exponentially more difficult."
+            </p>
+            
+            <p>
+                This doesn't mean children's financial futures are determined by age 15, but it does suggest that <span class="bold-text">parents have a narrow opportunity to ensure their children's brains are wired for financial success rather than struggle.</span>
+            </p>
+            
+            <p>
+                "It's similar to language acquisition," notes Dr. Shaw. "Adults can certainly learn new languages with deliberate effort, but children effortlessly absorb them during critical developmental periods."
+            </p>
+            
+            <div class="feature-img">
+                <img src="/api/placeholder/780/400" alt="Comparing brain scans">
+                <div class="caption">Comparative brain activity when presented with identical financial opportunities. Left: Child with wealth-oriented neural development. Right: Child with traditional financial programming.</div>
+            </div>
+            
+            <div class="subtle-cta">
+                <a href="#" class="subtle-button">Discover The Critical Window For Your Child →</a>
+            </div>
+            
+            <h3 class="section-headline">The Simple Environmental Shift That Changes Everything</h3>
+            
+            <p>
+                When I explained all this to my sister Lisa, her first reaction was overwhelm. "So I'm already damaging Jack's financial future? What am I supposed to do now?"
+            </p>
+            
+            <p>
+                That's when I shared what might be the most encouraging aspect of this emerging research: <span class="bold-text">some forward-thinking families are finding that relatively simple shifts in how they approach everyday situations can begin rewiring these neural pathways in as little as 30 days.</span>
+            </p>
+            
+            <p>
+                These approaches don't involve complex financial education, special resources, or dramatic lifestyle changes. Instead, they focus on creating specific types of experiences that naturally develop the three critical neural patterns identified in the research.
+            </p>
+            
+            <div class="with-big-number">
+                <div class="big-number">1</div>
+                <div class="number-content">
+                    <div class="number-heading">The "Problem to Profit" Shift</div>
+                    <p>When children encounter everyday problems or wants, wealthy families unconsciously direct brain development toward value creation rather than limitation.</p>
+                </div>
+            </div>
+            
+            <div class="with-big-number">
+                <div class="big-number">2</div>
+                <div class="number-content">
+                    <div class="number-heading">The "Multiplication Mindset" Method</div>
+                    <p>Instead of teaching conservation of resources, certain interaction patterns develop neural pathways that automatically see possibilities for growth and expansion.</p>
+                </div>
+            </div>
+            
+            <div class="with-big-number">
+                <div class="big-number">3</div>
+                <div class="number-content">
+                    <div class="number-heading">The "Calculated Courage" Framework</div>
+                    <p>Simple adjustments to how families respond to children's initiatives can develop healthy risk assessment circuitry rather than risk avoidance patterns.</p>
+                </div>
+            </div>
+            
+            <h3 class="section-headline">The Transformation in My Own Family</h3>
+            
+            <p>
+                After learning about this research, my sister Lisa decided to try implementing some of these approaches with Jack. The results were more dramatic than either of us expected.
+            </p>
+            
+            <p>
+                Within just six weeks, she noticed profound shifts in how he approached everyday situations. <span class="bold-text">When his favorite online game shut down, instead of just being disappointed, he started brainstorming a better game concept and asking how people create games.</span>
+            </p>
+            
+            <p>
+                Even more surprising, his teacher called Lisa to ask what had changed at home. Jack had started showing remarkable problem-solving skills in group projects and was demonstrating leadership qualities that hadn't been apparent before.
+            </p>
+            
+            <p>
+                "It's like we unlocked a different operating system in his brain," Lisa told me. "And we didn't add a single formal 'lesson' about money or business."
+            </p>
+            
+            <div class="cta-section">
+                <h3 class="cta-headline">Is Your Child's Brain Wired For Financial Struggle Or Success?</h3>
+                <p class="cta-description">
+                    Discover the simple framework that's helping parents develop wealth-building neural pathways in their children during the critical developmental window.
+                </p>
+                <button class="cta-button">See How It Works</button>
+            </div>
+            
+            <h3 class="section-headline">Why This Matters More Than Ever</h3>
+            
+            <p>
+                Economic experts are increasingly concerned that today's children face financial challenges unlike any previous generation. <span class="bold-text">Traditional education is preparing them for jobs that may not exist, while doing nothing to develop the neural frameworks needed for financial resilience.</span>
+            </p>
+            
+            <p>
+                "We're seeing a widening gap," explains economist Dr. James Wilson. "Children whose brains are wired with these wealth-building patterns adapt quickly to economic shifts, while those without them struggle significantly, regardless of their academic achievements."
+            </p>
+            
+            <p>
+                This may explain why many traditionally successful students find themselves financially overwhelmed as adults, while others with mediocre academic records become financially resilient and successful.
+            </p>
+            
+            <p>
+                The difference isn't intelligence or education – it's how their brains were programmed to process financial information during childhood.
+            </p>
+            
+            <div class="quote-block">
+                <div class="quote-text">"Most parents are naturally doing what was done to them, unaware they're installing the exact neural patterns that created their own financial struggles. Breaking this cycle requires conscious intervention during the critical developmental window."</div>
+                <div class="quote-source">— Dr. Elena Sharma, Developmental Neuropsychologist</div>
+            </div>
+            
+            <p>
+                The good news is that more families are discovering what my sister Lisa found – that with the right approach, these patterns can be developed in any child, from any background, with relatively simple adjustments to everyday interactions.
+            </p>
+            
+            <div class="story-card">
+                <div class="story-title">From Anxiety to Confidence</div>
+                <div class="story-text">"My daughter used to get anxious about money because she sensed my own financial stress. After learning about these brain development patterns, I made some simple changes to how we talked about everyday situations. Within two months, she went from worrying about 'not having enough' to starting a neighborhood business that's now bringing in $200 a month. The change in her confidence is remarkable."</div>
+                <div class="story-person">— Melissa T., Mother of 10-year-old Emma</div>
+            </div>
+            
+            <h3 class="section-headline">How To Apply This Research With Your Own Child</h3>
+            
+            <p>
+                If you're like my sister Lisa, you might be wondering how to start implementing these approaches in your own family. The good news is that researchers and family development experts have created a simplified framework specifically for parents.
+            </p>
+            
+            <p>
+                <span class="bold-text">This isn't about teaching complex financial concepts or dramatically changing your parenting style.</span> Instead, it focuses on making small, specific adjustments to everyday interactions that support healthy neural development in these critical areas.
+            </p>
+            
+            <p>
+                Parents who've implemented these approaches report seeing noticeable changes in their children's problem-solving abilities, initiative, and confidence in as little as 3-4 weeks.
+            </p>
+            
+            <div class="subtle-cta">
+                <a href="#" class="subtle-button">Learn The Framework For Your Family →</a>
+            </div>
+            
+            <p>
+                As for my nephew Jack? Six months after Lisa began implementing these approaches, he announced a new career ambition at dinner: "I want to create things that help people solve problems." When Lisa asked if he was worried about making enough money doing that, his response brought tears to her eyes:
+            </p>
+            
+            <p>
+                "No, Mom. When you solve real problems for people, the money takes care of itself."
+            </p>
+            
+            <p>
+                <span class="bold-text">Out of the mouth of a now 9-year-old whose brain was being rewired for financial struggle just months earlier.</span>
+            </p>
+            
+            <div class="cta-section">
+                <h3 class="cta-headline">Want To See If Your Child's Critical Window Is Still Open?</h3>
+                <p class="cta-description">
+                    Discover the science-based approach that's helping thousands of families develop wealth-building neural patterns in their children during the vital developmental window.
+                </p>
+                <button class="cta-button">See The Framework</button>
+            </div>
+            
+            <div class="sharing">
+                <a href="#" class="share-button"><span class="share-icon">📤</span> Share</a>
+                <a href="#" class="share-button"><span class="share-icon">💬</span> Comment</a>
+                <a href="#" class="share-button"><span class="share-icon">🔖</span> Save</a>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="author-section" style="margin-top: 30px;">
+                <div class="author-img">
+                    <img src="/api/placeholder/60/60" alt="Sarah Chen">
+                </div>
+                <div class="author-bio">
+                    <div class="author-name">About Sarah Chen</div>
+                    <div class="author-title" style="font-style: normal; line-height: 1.5;">
+                        Sarah Chen is a child development researcher and parent educator specializing in how early experiences shape lifelong patterns. She has worked with hundreds of families to implement evidence-based approaches to childhood development.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctaButtons = document.querySelectorAll('.cta-button, .subtle-button');
+            
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Redirect to sales page
+                    window.location.href = 'sales-page.html';
+                });
+                
+                // Hover effects
+                button.addEventListener('mouseenter', function() {
+                    if (this.classList.contains('cta-button')) {
+                        this.style.transform = 'translateY(-2px)';
+                        this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                    } else {
+                        this.style.transform = 'translateY(-1px)';
+                        this.style.backgroundColor = 'rgba(74, 144, 226, 0.15)';
+                    }
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    if (this.classList.contains('cta-button')) {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = 'none';
+                    } else {
+                        this.style.transform = 'translateY(0)';
+                        this.style.backgroundColor = 'rgba(74, 144, 226, 0.1)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
