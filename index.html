@@ -737,20 +737,6 @@
         </div>
     </div>
     
-    <!-- Transition to Advertorial -->
-    <div class="transition-container" id="transition">
-        <div class="shocking-stat">
-            <span class="stat-highlight">83% of children raised with these common parenting approaches will NEVER achieve financial freedom.</span>
-        </div>
-        
-        <p>Your Wealth Potential Score of <span id="final-score">54</span> reveals critical gaps in your wealth parenting approach.</p>
-        
-        <p>We've identified specific limiting beliefs that may be holding your child back from their full financial potential.</p>
-        
-        <p>The good news? There's a proven solution that the elite 1% have been using for generations...</p>
-        
-        <button class="cta-button" id="final-cta">CONTINUE TO YOUR PERSONALIZED WEALTH BLUEPRINT →</button>
-    </div>
     
     <!-- Exit Intent Popup -->
     <div class="exit-popup" id="exit-popup">
@@ -889,16 +875,11 @@
     });
     
     // Unlock button
-    document.getElementById('unlock-button').addEventListener('click', function() {
-        document.getElementById('results').style.display = 'none';
-        document.getElementById('transition').style.display = 'block';
-    });
+document.getElementById('unlock-button').addEventListener('click', function() {
+    // Redirect directly to advertorial page
+    window.location.href = "advertorial.html";
+});
     
-    // Final CTA button
-    document.getElementById('final-cta').addEventListener('click', function() {
-        // Redirect to advertorial
-        alert('Redirecting to advertorial page...');
-    });
     
     // Exit intent popup
     document.getElementById('popup-stay').addEventListener('click', function() {
