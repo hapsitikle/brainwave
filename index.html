@@ -874,51 +874,48 @@
         let quizTimerId, resultsTimerId;
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize countdown timer
-            startCountdown('countdown', 12 * 60);
-            
-            // Start quiz button
-            document.getElementById('start-quiz').addEventListener('click', function() {
-                document.getElementById('quiz-entry').style.display = 'none';
-                document.getElementById('quiz').style.display = 'block';
-                loadQuestion(0);
-            });
-            
-            // Option selection
-            document.querySelectorAll('.option').forEach(option => {
-                option.addEventListener('click', function() {
-                    selectOption(this);
-                });
-            });
-            
-            // Unlock button
-            document.getElementById('unlock-button').addEventListener('click', function() {
-                document.getElementById('results').style.display = 'none';
-                document.getElementById('transition').style.display = 'block';
-            });
-            
-            // Final CTA button
-            document.getElementById('final-cta').addEventListener('click', function() {
-                // Redirect to advertorial
-                alert('Redirecting to advertorial page...');
-            });
-            
-            // Exit intent popup
-            document.getElementById('popup-stay').addEventListener('click', function() {
-                document.getElementById('exit-popup').style.display = 'none';
-            });
-            
-            document.getElementById('popup-leave').addEventListener('click', function() {
-                document.getElementById('exit-popup').style.display = 'none';
-            });
-            
-            // Simulate exit intent
-            setTimeout(function() {
-                if (document.getElementById('quiz').style.display === 'block') {
-                    document.getElementById('exit-popup').style.display = 'flex';
-                }
-            }, 30000);
+    // Start quiz button
+    document.getElementById('start-quiz').addEventListener('click', function() {
+        document.getElementById('quiz-entry').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+        loadQuestion(0);
+    });
+    
+    // Option selection
+    document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', function() {
+            selectOption(this);
         });
+    });
+    
+    // Unlock button
+    document.getElementById('unlock-button').addEventListener('click', function() {
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('transition').style.display = 'block';
+    });
+    
+    // Final CTA button
+    document.getElementById('final-cta').addEventListener('click', function() {
+        // Redirect to advertorial
+        alert('Redirecting to advertorial page...');
+    });
+    
+    // Exit intent popup
+    document.getElementById('popup-stay').addEventListener('click', function() {
+        document.getElementById('exit-popup').style.display = 'none';
+    });
+    
+    document.getElementById('popup-leave').addEventListener('click', function() {
+        document.getElementById('exit-popup').style.display = 'none';
+    });
+    
+    // Simulate exit intent
+    setTimeout(function() {
+        if (document.getElementById('quiz').style.display === 'block') {
+            document.getElementById('exit-popup').style.display = 'flex';
+        }
+    }, 30000);
+});
         
         function startCountdown(elementId, seconds) {
             const element = document.getElementById(elementId);
