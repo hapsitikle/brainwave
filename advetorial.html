@@ -727,17 +727,16 @@ p {
     document.addEventListener('DOMContentLoaded', function() {
         const ctaButtons = document.querySelectorAll('.cta-button, .subtle-button');
         
-        // Your ClickBank HopLink
-        const affiliateLink = 'https://dealify7.attractbr.hop.clickbank.net';
+        // Use ClickBank's secure tracking domain instead
+        const affiliateLink = 'https://pay.clickbank.net/?cbitems=attractbr&cbaffi=dealify7';
         
         ctaButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Redirect to sales page using your HopLink
                 window.location.href = affiliateLink;
             });
             
-            // Hover effects
+            // Hover effects remain unchanged
             button.addEventListener('mouseenter', function() {
                 if (this.classList.contains('cta-button')) {
                     this.style.transform = 'translateY(-2px)';
