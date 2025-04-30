@@ -724,38 +724,41 @@ p {
     </div>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctaButtons = document.querySelectorAll('.cta-button, .subtle-button');
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctaButtons = document.querySelectorAll('.cta-button, .subtle-button');
+        
+        // Your ClickBank HopLink
+        const affiliateLink = 'https://2a7a49h0ugst9o878nw5hjqje3.hop.clickbank.net';
+        
+        ctaButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Redirect to sales page using your HopLink
+                window.location.href = affiliateLink;
+            });
             
-            ctaButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // Redirect to sales page
-                    window.location.href = 'sales-page.html';
-                });
-                
-                // Hover effects
-                button.addEventListener('mouseenter', function() {
-                    if (this.classList.contains('cta-button')) {
-                        this.style.transform = 'translateY(-2px)';
-                        this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-                    } else {
-                        this.style.transform = 'translateY(-1px)';
-                        this.style.backgroundColor = 'rgba(74, 144, 226, 0.15)';
-                    }
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    if (this.classList.contains('cta-button')) {
-                        this.style.transform = 'translateY(0)';
-                        this.style.boxShadow = 'none';
-                    } else {
-                        this.style.transform = 'translateY(0)';
-                        this.style.backgroundColor = 'rgba(74, 144, 226, 0.1)';
-                    }
-                });
+            // Hover effects
+            button.addEventListener('mouseenter', function() {
+                if (this.classList.contains('cta-button')) {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                } else {
+                    this.style.transform = 'translateY(-1px)';
+                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.15)';
+                }
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                if (this.classList.contains('cta-button')) {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                } else {
+                    this.style.transform = 'translateY(0)';
+                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.1)';
+                }
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
