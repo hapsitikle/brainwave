@@ -917,23 +917,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Unlock button (redirect to advertorial) - PRESERVE URL PARAMETERS
+    // FIXED: Direct redirect to advertorial with URL parameters preserved
     document.getElementById('unlock-button').addEventListener('click', function() {
-        // Get current URL parameters
-        const currentParams = new URLSearchParams(window.location.search);
-        // Prepare the advertorial URL with parameters
-        let advertorialUrl = "advertorial.html";
-        
-        // Add parameters if they exist
-        if (currentParams.toString()) {
-            advertorialUrl += "?" + currentParams.toString();
+        try {
+            // Simple and direct redirect with parameters
+            console.log('Redirect button clicked, going to advertorial...');
+            window.location.href = "advertorial.html" + window.location.search;
+        } catch (error) {
+            console.error('Error during redirect:', error);
+            // Fallback in case of errors
+            window.location.href = "advertorial.html";
         }
-        
-        // Short delay to ensure any tracking completes
-        setTimeout(function() {
-            // Redirect to advertorial page with parameters preserved
-            window.location.href = advertorialUrl;
-        }, 300);
     });
     
     // Exit intent popup handling
