@@ -887,7 +887,10 @@ document.getElementById('start-quiz').addEventListener('click', function() {
     // Unlock button
 document.getElementById('unlock-button').addEventListener('click', function() {
     // Redirect directly to advertorial page
-    window.location.href = "advetorial.html";
+    const urlParams = new URLSearchParams(window.location.search);
+const extClid = urlParams.get('ext_clid');
+const redirectUrl = extClid ? `advetorial.html?ext_clid=${extClid}` : "advetorial.html";
+window.location.href = redirectUrl;
 });
     
     
