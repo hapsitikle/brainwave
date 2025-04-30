@@ -873,34 +873,24 @@ let quizStartTime;
 let quizTimerId, resultsTimerId;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Track quiz views - additional pageview event with context
-    try {
+    // Verify NewsBreak pixel loaded correctly
+    setTimeout(function() {
         if (typeof nbpix === 'function') {
-            nbpix('event', 'view_quiz_landing', {
-                page_type: 'quiz_landing',
-                source: document.referrer || 'direct'
-            });
-            console.log('Quiz landing view tracked');
+            console.log('NewsBreak pixel loaded successfully');
+        } else {
+            console.error('NewsBreak pixel failed to load');
         }
-    } catch (error) {
-        console.error('Error tracking quiz view:', error);
-    }
+    }, 2000);
 
-    // Start quiz button with enhanced tracking
+    // Start quiz button with NewsBreak tracking - MAIN CONVERSION EVENT
     document.getElementById('start-quiz').addEventListener('click', function() {
-        // Track the button click with detailed parameters
         console.log('Start Quiz button clicked, firing NewsBreak pixel event...');
         
         try {
             // Check if nbpix is defined
             if (typeof nbpix === 'function') {
-                // Track the button click
-                nbpix('event', 'click_button', {
-                    button_id: 'start-quiz',
-                    button_text: 'START MY WEALTH ASSESSMENT NOW',
-                    page: 'quiz_landing',
-                    timestamp: new Date().toISOString()
-                });
+                // Track the button click - this is your conversion event
+                nbpix('event', 'click_button');
                 console.log('NewsBreak pixel event fired successfully');
             } else {
                 console.error('NewsBreak pixel tracking not available (nbpix is not defined)');
@@ -927,51 +917,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Unlock button (redirect to advertorial)
+    // Unlock button (redirect to advertorial) - PRESERVE URL PARAMETERS
     document.getElementById('unlock-button').addEventListener('click', function() {
-        // Track the advertorial redirect
-        try {
-            if (typeof nbpix === 'function') {
-                nbpix('event', 'click_advertorial', {
-                    quiz_completed: true,
-                    quiz_score: document.getElementById('score-value').textContent,
-                    quiz_duration: Math.round((new Date() - quizStartTime) / 1000)
-                });
-                console.log('Advertorial click tracked');
-            }
-        } catch (error) {
-            console.error('Error tracking advertorial click:', error);
+        // Get current URL parameters
+        const currentParams = new URLSearchParams(window.location.search);
+        // Prepare the advertorial URL with parameters
+        let advertorialUrl = "advertorial.html";
+        
+        // Add parameters if they exist
+        if (currentParams.toString()) {
+            advertorialUrl += "?" + currentParams.toString();
         }
         
-        // Short delay to ensure tracking completes
+        // Short delay to ensure any tracking completes
         setTimeout(function() {
-            // Redirect to advertorial page
-            window.location.href = "advertorial.html";
+            // Redirect to advertorial page with parameters preserved
+            window.location.href = advertorialUrl;
         }, 300);
     });
     
     // Exit intent popup handling
     document.getElementById('popup-stay').addEventListener('click', function() {
-        // Track stay button click
-        try {
-            if (typeof nbpix === 'function') {
-                nbpix('event', 'click_popup_stay');
-            }
-        } catch (error) {
-            console.error('Error tracking popup stay click:', error);
-        }
         document.getElementById('exit-popup').style.display = 'none';
     });
     
     document.getElementById('popup-leave').addEventListener('click', function() {
-        // Track leave button click
-        try {
-            if (typeof nbpix === 'function') {
-                nbpix('event', 'click_popup_leave');
-            }
-        } catch (error) {
-            console.error('Error tracking popup leave click:', error);
-        }
         document.getElementById('exit-popup').style.display = 'none';
     });
     
@@ -979,28 +949,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
         if (document.getElementById('quiz').style.display === 'block') {
             document.getElementById('exit-popup').style.display = 'flex';
-            
-            // Track exit popup shown
-            try {
-                if (typeof nbpix === 'function') {
-                    nbpix('event', 'show_exit_popup', {
-                        current_question: currentQuestion
-                    });
-                }
-            } catch (error) {
-                console.error('Error tracking exit popup:', error);
-            }
         }
     }, 30000);
-    
-    // Verify NewsBreak pixel loaded correctly
-    setTimeout(function() {
-        if (typeof nbpix === 'function') {
-            console.log('NewsBreak pixel loaded successfully');
-        } else {
-            console.error('NewsBreak pixel failed to load');
-        }
-    }, 2000);
     
     // Add exit intent detection
     document.addEventListener('mouseleave', function(e) {
@@ -1009,22 +959,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Only show if quiz is active or results are showing but not completed
             const quizActive = document.getElementById('quiz').style.display === 'block';
             const resultsActive = document.getElementById('results').style.display === 'block' && 
-                                document.getElementById('results').style.display !== 'block';
+                                document.getElementById('results-content').style.display !== 'block';
             
             if (quizActive || resultsActive) {
                 document.getElementById('exit-popup').style.display = 'flex';
-                
-                // Track exit intent
-                try {
-                    if (typeof nbpix === 'function') {
-                        nbpix('event', 'exit_intent', {
-                            current_question: currentQuestion,
-                            progress_percent: ((currentQuestion + 1) / questions.length) * 100
-                        });
-                    }
-                } catch (error) {
-                    console.error('Error tracking exit intent:', error);
-                }
             }
         }
     });
@@ -1077,18 +1015,6 @@ function loadQuestion(index) {
     // Update progress bar
     const progress = ((index + 1) / questions.length) * 100;
     document.getElementById('progress').style.width = `${progress}%`;
-    
-    // Track question view
-    try {
-        if (typeof nbpix === 'function') {
-            nbpix('event', 'view_question', {
-                question_number: index + 1,
-                question_text: questionData.text.substring(0, 100)
-            });
-        }
-    } catch (error) {
-        console.error('Error tracking question view:', error);
-    }
 }
 
 // Select option function
@@ -1104,19 +1030,6 @@ function selectOption(optionElement) {
     // Store answer
     const answer = optionElement.getAttribute('data-value');
     answers[currentQuestion] = answer;
-    
-    // Track answer selection
-    try {
-        if (typeof nbpix === 'function') {
-            nbpix('event', 'select_answer', {
-                question_number: currentQuestion + 1,
-                answer_letter: answer,
-                answer_text: optionElement.querySelector('div:last-child').textContent.substring(0, 100)
-            });
-        }
-    } catch (error) {
-        console.error('Error tracking answer selection:', error);
-    }
     
     // Add gold pulse animation
     optionElement.style.animation = 'goldPulse 0.5s';
@@ -1144,18 +1057,6 @@ function showResults() {
     document.getElementById('quiz').style.display = 'none';
     document.getElementById('results').style.display = 'block';
     
-    // Track quiz completion
-    try {
-        if (typeof nbpix === 'function') {
-            nbpix('event', 'quiz_complete', {
-                time_spent: Math.round((new Date() - quizStartTime) / 1000),
-                questions_answered: answers.length
-            });
-        }
-    } catch (error) {
-        console.error('Error tracking quiz completion:', error);
-    }
-    
     // Simulate calculation time
     setTimeout(() => {
         document.getElementById('calculating').style.display = 'none';
@@ -1168,17 +1069,6 @@ function showResults() {
         // Position score marker
         const percentage = score / 100;
         document.getElementById('score-marker').style.left = `${percentage * 100}%`;
-        
-        // Track results shown
-        try {
-            if (typeof nbpix === 'function') {
-                nbpix('event', 'show_results', {
-                    score: score
-                });
-            }
-        } catch (error) {
-            console.error('Error tracking results:', error);
-        }
         
         // Start results countdown timer
         if (document.getElementById('results-timer')) {
