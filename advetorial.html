@@ -42,33 +42,32 @@ body {
     margin: 0 auto;
 }
 
-        /* Sticky CTA for advertorial page */
-.sticky-framework-cta {
+        /* Sticky CTA for mobile */
+.sticky-cta-container {
     display: none;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: var(--dark-blue);
-    padding: 15px;
+    padding: 10px;
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
     z-index: 100;
     text-align: center;
-    transition: transform 0.3s ease;
 }
 
-.sticky-framework-cta .cta-button {
-    width: 95%;
+.sticky-cta-container .cta-button {
+    width: 90%;
     margin: 0 auto;
     padding: 15px;
     font-size: 16px;
     animation: pulse 2s infinite;
 }
 
-/* For smaller mobile screens */
 @media (max-width: 360px) {
-    .sticky-framework-cta .cta-button {
+    .sticky-cta-container .cta-button {
         font-size: 14px;
+        padding: 12px;
     }
 }
 
@@ -369,27 +368,23 @@ p {
     text-align: center;
 }
 
-/* Update the subtle-button class to match the orange CTA style */
 .subtle-button {
     display: inline-block;
-    padding: 14px 28px;
-    background-color: var(--bright-cta); /* Changed from rgba(212, 175, 55, 0.1) to var(--bright-cta) */
-    color: white; /* Changed from var(--gold) to white */
+    padding: 10px 20px;
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--gold);
     text-decoration: none;
     border-radius: 4px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     font-size: 15px;
     transition: all 0.3s ease;
-    border: none; /* Changed from 1px solid rgba(212, 175, 55, 0.3) to none */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Added box-shadow */
-    animation: pulse 2s infinite; /* Added pulse animation */
+    border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .subtle-button:hover {
-    background-color: #ff8124; /* Changed from rgba(212, 175, 55, 0.2) to #ff8124 */
-    transform: translateY(-2px); /* Changed from -1px to -2px */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Added stronger box-shadow on hover */
+    background-color: rgba(212, 175, 55, 0.2);
+    transform: translateY(-1px);
 }
 
 .big-number {
@@ -781,77 +776,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 window.location.href = affiliateLink;
             });
             
+            // Hover effects remain unchanged
             button.addEventListener('mouseenter', function() {
-    this.style.transform = 'translateY(-2px)';
-    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.4)';
-    if (!this.classList.contains('cta-button')) {
-        this.style.backgroundColor = '#ff8124';
-    }
-});
-
-button.addEventListener('mouseleave', function() {
-    this.style.transform = 'translateY(0)';
-    this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
-    if (!this.classList.contains('cta-button')) {
-        this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bright-cta').trim();
-    }
-});
+                if (this.classList.contains('cta-button')) {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
+                } else {
+                    this.style.transform = 'translateY(-1px)';
+                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.15)';
+                }
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                if (this.classList.contains('cta-button')) {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                } else {
+                    this.style.transform = 'translateY(0)';
+                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.1)';
+                }
+            });
         });
     });
-        // Sticky Framework CTA functionality
-function handleStickyFrameworkCTA() {
-    const stickyFrameworkCta = document.getElementById('sticky-framework-cta');
+        // Sticky CTA functionality
+function handleStickyCta() {
+    const stickyCta = document.getElementById('stickyCta');
     
-    // Find the last CTA button (the one at the bottom of the page)
-    const allCtaButtons = document.querySelectorAll('.cta-button');
-    const bottomCta = allCtaButtons[allCtaButtons.length - 1];
+    // Find the final CTA button (the one at the bottom of the page)
+    const finalCtaButton = document.querySelectorAll('.cta-button')[document.querySelectorAll('.cta-button').length - 1];
     
-    if (!bottomCta) return; // Safety check
+    if (!finalCtaButton) return;
     
-    // Get position of the original bottom CTA button
-    const bottomCtaRect = bottomCta.getBoundingClientRect();
-    
-    // Get the document height and viewport height
-    const docHeight = Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
+    const finalCtaRect = finalCtaButton.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
     
-    // If bottom CTA is visible or we've scrolled to the bottom, hide sticky button
-    if (bottomCtaRect.top < windowHeight && bottomCtaRect.bottom > 0 || 
-        scrollPosition + windowHeight >= docHeight - 50) {
-        stickyFrameworkCta.style.display = 'none';
+    // Show sticky CTA only when final CTA is not visible
+    if (finalCtaRect.top >= windowHeight || finalCtaRect.bottom <= 0) {
+        stickyCta.style.display = 'block';
     } else {
-        stickyFrameworkCta.style.display = 'block';
+        stickyCta.style.display = 'none';
     }
 }
 
-// Initialize sticky framework CTA
+// Add sticky button functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the previous code for other buttons first
-    
-    // Then add this new code for the framework CTA
-    if (document.getElementById('sticky-framework-button')) {
-        // Add click event for sticky framework CTA
-        document.getElementById('sticky-framework-button').addEventListener('click', function() {
-            // Use the same affiliate link as the other buttons
+    // Set up the sticky CTA button
+    const stickyCtaButton = document.getElementById('stickyCtaButton');
+    if (stickyCtaButton) {
+        stickyCtaButton.addEventListener('click', function() {
             window.location.href = affiliateLink;
         });
-        
-        // Check sticky framework CTA on scroll
-        window.addEventListener('scroll', handleStickyFrameworkCTA);
-        
-        // Initial check in case user loads the page partway down
-        setTimeout(handleStickyFrameworkCTA, 500);
     }
+    
+    // Handle scroll events
+    window.addEventListener('scroll', handleStickyCta);
+    
+    // Initial check
+    setTimeout(handleStickyCta, 500);
 });
 </script>
-    <!-- Sticky Framework CTA -->
-<div class="sticky-framework-cta" id="sticky-framework-cta">
-    <button class="cta-button" id="sticky-framework-button">See The Framework</button>
+    <!-- Sticky CTA -->
+<div class="sticky-cta-container" id="stickyCta">
+    <button class="cta-button" id="stickyCtaButton">See The Framework</button>
 </div>
 </body>
 </html>
