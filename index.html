@@ -176,6 +176,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         width: 1px;
         background-color: rgba(255, 255, 255, 0.3);
     }
+
+        /* Sticky CTA Button */
+.sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--dark-blue);
+    padding: 15px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.sticky-cta .cta-button {
+    width: 95%;
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 16px;
+}
+
+/* For smaller mobile screens */
+@media (max-width: 360px) {
+    .sticky-cta .cta-button {
+        font-size: 14px;
+    }
+}
     
     @media (min-width: 768px) {
         .trust-indicators {
@@ -1011,6 +1040,61 @@ window.location.href = redirectUrl;
                 startCountdown('results-timer', 15 * 60);
             }, 5000);
         }
+
+        // Sticky CTA functionality
+function handleStickyCTA() {
+    const stickyCta = document.getElementById('sticky-cta');
+    const originalCta = document.getElementById('unlock-button');
+    const resultsContent = document.getElementById('results-content');
+    
+    // Only show sticky CTA when results are visible
+    if (resultsContent.style.display !== 'block') {
+        stickyCta.style.display = 'none';
+        return;
+    }
+    
+    // Get position of the original CTA button
+    const originalCtaRect = originalCta.getBoundingClientRect();
+    // Get the document height and viewport height
+    const docHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+    const windowHeight = window.innerHeight;
+    const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    
+    // If original button is visible or we've scrolled to the bottom, hide sticky button
+    if (originalCtaRect.top < windowHeight && originalCtaRect.bottom > 0 || 
+        scrollPosition + windowHeight >= docHeight - 50) {
+        stickyCta.style.display = 'none';
+    } else {
+        stickyCta.style.display = 'block';
+    }
+}
+
+// Initialize sticky CTA
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click event for sticky CTA
+    document.getElementById('sticky-unlock-button').addEventListener('click', function() {
+        // Same action as original button
+        const urlParams = new URLSearchParams(window.location.search);
+        const extClid = urlParams.get('ext_clid');
+        const redirectUrl = extClid ? `advetorial.html?ext_clid=${extClid}` : "advetorial.html";
+        window.location.href = redirectUrl;
+    });
+    
+    // Check sticky CTA on scroll
+    window.addEventListener('scroll', handleStickyCTA);
+    
+    // Also check when results are shown
+    const originalShowResults = showResults;
+    showResults = function() {
+        originalShowResults();
+        // After a delay to let the results render
+        setTimeout(handleStickyCTA, 5500);
+    };
+});
         
         // Add exit intent detection
         document.addEventListener('mouseleave', function(e) {
@@ -1057,5 +1141,9 @@ window.location.href = redirectUrl;
         `;
         document.head.appendChild(style);
     </script>
+    <!-- Sticky CTA -->
+<div class="sticky-cta" id="sticky-cta">
+    <button class="cta-button" id="sticky-unlock-button">UNLOCK YOUR CHILD'S BILLIONAIRE BRAIN PATTERN NOW →</button>
+</div>
 </body>
 </html>
