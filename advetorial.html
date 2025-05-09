@@ -42,9 +42,9 @@ body {
     margin: 0 auto;
 }
 
-        /* Sticky CTA for mobile */
+       /* Sticky CTA for mobile */
 .sticky-cta-container {
-    display: none;
+    display: block;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -54,6 +54,12 @@ body {
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
     z-index: 100;
     text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.sticky-cta-container.visible {
+    transform: translateY(0);
 }
 
 .sticky-cta-container .cta-button {
@@ -742,7 +748,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p class="cta-description">
                     Discover the science-based approach that's helping thousands of families develop wealth-building neural patterns in their children during the vital developmental window.
                 </p>
-                <button class="cta-button">See The Framework</button>
             </div>
             
             
@@ -798,41 +803,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             });
         });
     });
-        // Sticky CTA functionality
-function handleStickyCta() {
-    const stickyCta = document.getElementById('stickyCta');
-    
-    // Find the final CTA button (the one at the bottom of the page)
-    const finalCtaButton = document.querySelectorAll('.cta-button')[document.querySelectorAll('.cta-button').length - 1];
-    
-    if (!finalCtaButton) return;
-    
-    const finalCtaRect = finalCtaButton.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    
-    // Show sticky CTA only when final CTA is not visible
-    if (finalCtaRect.top >= windowHeight || finalCtaRect.bottom <= 0) {
-        stickyCta.style.display = 'block';
-    } else {
-        stickyCta.style.display = 'none';
-    }
-}
-
-// Add sticky button functionality
+        // Sticky CTA functionality - improved version
 document.addEventListener('DOMContentLoaded', function() {
-    // Set up the sticky CTA button
+    const stickyCta = document.getElementById('stickyCta');
     const stickyCtaButton = document.getElementById('stickyCtaButton');
+    const footer = document.querySelector('.cta-section:last-of-type');
+    let lastScrollPosition = 0;
+    let ticking = false;
+    
+    // Set up click handler
     if (stickyCtaButton) {
         stickyCtaButton.addEventListener('click', function() {
             window.location.href = affiliateLink;
         });
     }
     
-    // Handle scroll events
-    window.addEventListener('scroll', handleStickyCta);
+    function updateStickyButton() {
+        if (!footer) return;
+        
+        const footerPosition = footer.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        // Show sticky CTA when user has scrolled at least 1000px down
+        // Hide it when footer comes into view
+        if (window.scrollY > 1000 && footerPosition > windowHeight) {
+            stickyCta.classList.add('visible');
+        } else {
+            stickyCta.classList.remove('visible');
+        }
+        
+        ticking = false;
+    }
+    
+    // More efficient scroll handling with requestAnimationFrame
+    window.addEventListener('scroll', function() {
+        lastScrollPosition = window.scrollY;
+        
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                updateStickyButton();
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    });
     
     // Initial check
-    setTimeout(handleStickyCta, 500);
+    setTimeout(updateStickyButton, 500);
 });
 </script>
     <!-- Sticky CTA -->
