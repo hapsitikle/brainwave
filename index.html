@@ -1117,6 +1117,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         `;
         document.head.appendChild(style);
+        // Add scroll handler to show/hide sticky CTA
+window.addEventListener('scroll', function() {
+    const stickyButton = document.getElementById('sticky-cta');
+    const resultsContent = document.getElementById('results-content');
+    const originalButton = document.getElementById('unlock-button');
+    
+    if (resultsContent && resultsContent.style.display === 'block') {
+        // Only check visibility if we're on the results page
+        if (originalButton) {
+            const rect = originalButton.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                // Original button is visible, hide sticky
+                stickyButton.style.display = 'none';
+            } else {
+                // Original button not visible, show sticky
+                stickyButton.style.display = 'block';
+            }
+        }
+    }
+});
     </script>
     <!-- Sticky CTA -->
 <div class="sticky-cta" id="sticky-cta">
