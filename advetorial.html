@@ -773,44 +773,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const ctaButtons = document.querySelectorAll('.cta-button, .subtle-button');
+    // Define the affiliate link once (for all buttons)
+    const affiliateLink = 'https://c53a24m4maguix90yq13iool3l.hop.clickbank.net';
+    
+    // Set up all regular CTA buttons
+    const allButtons = document.querySelectorAll('.cta-button, .subtle-button');
+    allButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = affiliateLink;
+        });
         
-        // Use ClickBank's secure tracking domain instead
-        const affiliateLink = 'https://c53a24m4maguix90yq13iool3l.hop.clickbank.net';
-        
-        ctaButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = affiliateLink;
-            });
-            
-            button.addEventListener('mouseenter', function() {
-    this.style.transform = 'translateY(-2px)';
-    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.4)';
-    this.style.backgroundColor = '#ff8124';
-});
+        // Hover effects
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.4)';
+            this.style.backgroundColor = '#ff8124';
+        });
 
-button.addEventListener('mouseleave', function() {
-    this.style.transform = 'translateY(0)';
-    this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
-    this.style.backgroundColor = var(--bright-cta);
-});
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
+            this.style.backgroundColor = '#ff6b00'; // Direct hex color
         });
     });
-        // Sticky CTA functionality - improved version
-document.addEventListener('DOMContentLoaded', function() {
-    const stickyCta = document.getElementById('stickyCta');
-    const stickyCtaButton = document.getElementById('stickyCtaButton');
-    const footer = document.querySelector('.cta-section:last-of-type');
-    let lastScrollPosition = 0;
-    let ticking = false;
     
-    // Set up click handler
+    // Set up sticky CTA button specifically
+    const stickyCtaButton = document.getElementById('stickyCtaButton');
     if (stickyCtaButton) {
         stickyCtaButton.addEventListener('click', function() {
             window.location.href = affiliateLink;
         });
     }
+    
+    // Sticky CTA visibility handling
+    const stickyCta = document.getElementById('stickyCta');
+    const footer = document.querySelector('.cta-section:last-of-type');
+    let lastScrollPosition = 0;
+    let ticking = false;
     
     function updateStickyButton() {
         if (!footer) return;
@@ -845,6 +845,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial check
     setTimeout(updateStickyButton, 500);
+    
+    // Add keyframe for gold pulse
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes goldPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
 });
 </script>
     <!-- Sticky CTA -->
