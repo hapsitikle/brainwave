@@ -1019,27 +1019,30 @@ window.location.href = redirectUrl;
         }
         
         function showResults() {
-            document.getElementById('quiz').style.display = 'none';
-            document.getElementById('results').style.display = 'block';
-            
-            // Simulate calculation time
-            setTimeout(() => {
-                document.getElementById('calculating').style.display = 'none';
-                document.getElementById('results-content').style.display = 'block';
-                
-                // Calculate score (for demo: random score between 40-65)
-                const score = Math.floor(Math.random() * 26) + 40;
-                document.getElementById('score-value').textContent = score;
-                document.getElementById('final-score').textContent = score;
-                
-                // Position score marker
-                const percentage = score / 100;
-                document.getElementById('score-marker').style.left = `${percentage * 100}%`;
-                
-                // Start results countdown timer
-                startCountdown('results-timer', 15 * 60);
-            }, 1800);
-        }
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+    
+    // Simulate calculation time
+    setTimeout(() => {
+        document.getElementById('calculating').style.display = 'none';
+        document.getElementById('results-content').style.display = 'block';
+        
+        // Calculate score (for demo: random score between 40-65)
+        const score = Math.floor(Math.random() * 26) + 40;
+        document.getElementById('score-value').textContent = score;
+        document.getElementById('final-score').textContent = score;
+        
+        // Position score marker
+        const percentage = score / 100;
+        document.getElementById('score-marker').style.left = `${percentage * 100}%`;
+        
+        // Start results countdown timer
+        startCountdown('results-timer', 15 * 60);
+        
+        // Show sticky CTA immediately
+        handleStickyCTA();
+    }, 1800);
+}
 
         // Sticky CTA functionality
 function handleStickyCTA() {
