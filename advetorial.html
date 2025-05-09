@@ -42,6 +42,36 @@ body {
     margin: 0 auto;
 }
 
+        /* Sticky CTA for advertorial page */
+.sticky-framework-cta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--dark-blue);
+    padding: 15px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.sticky-framework-cta .cta-button {
+    width: 95%;
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 16px;
+    animation: pulse 2s infinite;
+}
+
+/* For smaller mobile screens */
+@media (max-width: 360px) {
+    .sticky-framework-cta .cta-button {
+        font-size: 14px;
+    }
+}
+
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -768,6 +798,60 @@ button.addEventListener('mouseleave', function() {
 });
         });
     });
+        // Sticky Framework CTA functionality
+function handleStickyFrameworkCTA() {
+    const stickyFrameworkCta = document.getElementById('sticky-framework-cta');
+    
+    // Find the last CTA button (the one at the bottom of the page)
+    const allCtaButtons = document.querySelectorAll('.cta-button');
+    const bottomCta = allCtaButtons[allCtaButtons.length - 1];
+    
+    if (!bottomCta) return; // Safety check
+    
+    // Get position of the original bottom CTA button
+    const bottomCtaRect = bottomCta.getBoundingClientRect();
+    
+    // Get the document height and viewport height
+    const docHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    );
+    const windowHeight = window.innerHeight;
+    const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    
+    // If bottom CTA is visible or we've scrolled to the bottom, hide sticky button
+    if (bottomCtaRect.top < windowHeight && bottomCtaRect.bottom > 0 || 
+        scrollPosition + windowHeight >= docHeight - 50) {
+        stickyFrameworkCta.style.display = 'none';
+    } else {
+        stickyFrameworkCta.style.display = 'block';
+    }
+}
+
+// Initialize sticky framework CTA
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the previous code for other buttons first
+    
+    // Then add this new code for the framework CTA
+    if (document.getElementById('sticky-framework-button')) {
+        // Add click event for sticky framework CTA
+        document.getElementById('sticky-framework-button').addEventListener('click', function() {
+            // Use the same affiliate link as the other buttons
+            window.location.href = affiliateLink;
+        });
+        
+        // Check sticky framework CTA on scroll
+        window.addEventListener('scroll', handleStickyFrameworkCTA);
+        
+        // Initial check in case user loads the page partway down
+        setTimeout(handleStickyFrameworkCTA, 500);
+    }
+});
 </script>
+    <!-- Sticky Framework CTA -->
+<div class="sticky-framework-cta" id="sticky-framework-cta">
+    <button class="cta-button" id="sticky-framework-button">See The Framework</button>
+</div>
 </body>
 </html>
