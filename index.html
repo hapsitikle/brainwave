@@ -1039,40 +1039,21 @@ window.location.href = redirectUrl;
         // Start results countdown timer
         startCountdown('results-timer', 15 * 60);
         
-        // Show sticky CTA immediately
-        handleStickyCTA();
+        // IMMEDIATELY show the sticky CTA
+        document.getElementById('sticky-cta').style.display = 'block';
     }, 1800);
 }
 
-        // Sticky CTA functionality
+        // Simplified sticky CTA functionality
 function handleStickyCTA() {
     const stickyCta = document.getElementById('sticky-cta');
-    const originalCta = document.getElementById('unlock-button');
     const resultsContent = document.getElementById('results-content');
     
-    // Only show sticky CTA when results are visible
-    if (resultsContent.style.display !== 'block') {
-        stickyCta.style.display = 'none';
-        return;
-    }
-    
-    // Get position of the original CTA button
-    const originalCtaRect = originalCta.getBoundingClientRect();
-    // Get the document height and viewport height
-    const docHeight = Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-    );
-    const windowHeight = window.innerHeight;
-    const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-    
-    // If original button is visible or we've scrolled to the bottom, hide sticky button
-    if (originalCtaRect.top < windowHeight && originalCtaRect.bottom > 0 || 
-        scrollPosition + windowHeight >= docHeight - 50) {
-        stickyCta.style.display = 'none';
-    } else {
+    // Show sticky CTA when results are visible and immediately
+    if (resultsContent.style.display === 'block') {
         stickyCta.style.display = 'block';
+    } else {
+        stickyCta.style.display = 'none';
     }
 }
 
@@ -1086,18 +1067,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const redirectUrl = extClid ? `advetorial.html?ext_clid=${extClid}` : "advetorial.html";
         window.location.href = redirectUrl;
     });
-    
-    // Check sticky CTA on scroll
-    window.addEventListener('scroll', handleStickyCTA);
-    
-    // Also check when results are shown
-    const originalShowResults = showResults;
-    showResults = function() {
-        originalShowResults();
-        // After a delay to let the results render
-        setTimeout(handleStickyCTA, 5500);
-    };
 });
+
         
         // Add exit intent detection
         document.addEventListener('mouseleave', function(e) {
