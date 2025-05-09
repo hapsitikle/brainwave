@@ -375,21 +375,25 @@ p {
 
 .subtle-button {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: rgba(212, 175, 55, 0.1);
-    color: var(--gold);
+    padding: 14px 28px;
+    background-color: var(--bright-cta);
+    color: white;
     text-decoration: none;
     border-radius: 4px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     transition: all 0.3s ease;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s infinite;
 }
 
 .subtle-button:hover {
-    background-color: rgba(212, 175, 55, 0.2);
-    transform: translateY(-1px);
+    background-color: #ff8124;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .big-number {
@@ -780,26 +784,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 window.location.href = affiliateLink;
             });
             
-            // Hover effects remain unchanged
             button.addEventListener('mouseenter', function() {
-                if (this.classList.contains('cta-button')) {
-                    this.style.transform = 'translateY(-2px)';
-                    this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-                } else {
-                    this.style.transform = 'translateY(-1px)';
-                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.15)';
-                }
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                if (this.classList.contains('cta-button')) {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
-                } else {
-                    this.style.transform = 'translateY(0)';
-                    this.style.backgroundColor = 'rgba(74, 144, 226, 0.1)';
-                }
-            });
+    this.style.transform = 'translateY(-2px)';
+    this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.4)';
+    this.style.backgroundColor = '#ff8124';
+});
+
+button.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0)';
+    this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
+    this.style.backgroundColor = var(--bright-cta);
+});
         });
     });
         // Sticky CTA functionality - improved version
