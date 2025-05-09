@@ -42,7 +42,7 @@ body {
     margin: 0 auto;
 }
 
-       /* Sticky CTA for mobile */
+  /* Sticky CTA for mobile */
 .sticky-cta-container {
     display: block;
     position: fixed;
@@ -54,14 +54,10 @@ body {
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
     z-index: 100;
     text-align: center;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transform: translateY(0); /* Changed from translateY(100%) to make it visible by default */
 }
 
-.sticky-cta-container.visible {
-    transform: translateY(0);
-}
-
+/* CTA button styling */
 .sticky-cta-container .cta-button {
     width: 90%;
     margin: 0 auto;
@@ -70,12 +66,15 @@ body {
     animation: pulse 2s infinite;
 }
 
+/* Mobile optimization */
 @media (max-width: 360px) {
     .sticky-cta-container .cta-button {
         font-size: 14px;
         padding: 12px;
     }
 }
+
+
 
 .top-bar {
     display: flex;
