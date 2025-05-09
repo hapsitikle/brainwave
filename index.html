@@ -1030,17 +1030,19 @@ window.location.href = redirectUrl;
         // Calculate score (for demo: random score between 40-65)
         const score = Math.floor(Math.random() * 26) + 40;
         document.getElementById('score-value').textContent = score;
-        document.getElementById('final-score').textContent = score;
         
         // Position score marker
         const percentage = score / 100;
         document.getElementById('score-marker').style.left = `${percentage * 100}%`;
         
-        // Start results countdown timer
-        startCountdown('results-timer', 15 * 60);
+        // IMMEDIATELY show the sticky CTA - make sure this is inside the timeout
+        const stickyButton = document.getElementById('sticky-cta');
+        stickyButton.style.display = 'block';
         
-        // IMMEDIATELY show the sticky CTA
-        document.getElementById('sticky-cta').style.display = 'block';
+        // Start results countdown timer
+        if (document.getElementById('results-timer')) {
+            startCountdown('results-timer', 15 * 60);
+        }
     }, 1800);
 }
 
@@ -1059,16 +1061,17 @@ function handleStickyCTA() {
 
 // Initialize sticky CTA
 document.addEventListener('DOMContentLoaded', function() {
-    // Add click event for sticky CTA
-    document.getElementById('sticky-unlock-button').addEventListener('click', function() {
-        // Same action as original button
-        const urlParams = new URLSearchParams(window.location.search);
-        const extClid = urlParams.get('ext_clid');
-        const redirectUrl = extClid ? `advetorial.html?ext_clid=${extClid}` : "advetorial.html";
-        window.location.href = redirectUrl;
-    });
+    const stickyUnlockButton = document.getElementById('sticky-unlock-button');
+    if (stickyUnlockButton) {
+        stickyUnlockButton.addEventListener('click', function() {
+            // Same action as original button
+            const urlParams = new URLSearchParams(window.location.search);
+            const extClid = urlParams.get('ext_clid');
+            const redirectUrl = extClid ? `advetorial.html?ext_clid=${extClid}` : "advetorial.html";
+            window.location.href = redirectUrl;
+        });
+    }
 });
-
         
         // Add exit intent detection
         document.addEventListener('mouseleave', function(e) {
