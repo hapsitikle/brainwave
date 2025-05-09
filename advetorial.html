@@ -793,7 +793,7 @@ button.addEventListener('mouseleave', function() {
     this.style.transform = 'translateY(0)';
     this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.3)';
     if (!this.classList.contains('cta-button')) {
-        this.style.backgroundColor = var(--bright-cta);
+        this.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bright-cta').trim();
     }
 });
         });
